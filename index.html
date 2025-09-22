@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Typing Accuracy Test</title>
+<style>
+  body { font-family: Arial, sans-serif; background: #e3f2fd; margin:0; padding:0 }
+  header { background:#1976d2; color:#fff; padding:15px; text-align:center }
+  main { max-width:700px; margin:30px auto; background:#fff; padding:20px; border-radius:10px; box-shadow:0 0 10px rgba(0,0,0,0.1); text-align:center }
+  #quote { font-size:20px; margin:20px 0; padding:15px; background:#f1f1f1; border-radius:8px }
+  textarea { width:90%; height:100px; font-size:16px; padding:10px; border-radius:5px; border:1px solid #ccc; resize:none }
+  button { background:#1976d2; color:white; border:none; padding:10px 20px; margin:10px; font-size:16px; border-radius:5px; cursor:pointer }
+  button:hover { background:#0d47a1 }
+  #result { font-size:18px; margin-top:20px; font-weight:bold; color:#333 }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Typing Accuracy Test</h1>
+</header>
+
+<main>
+  <p id="quote">Click "Start Test" to begin</p>
+  <textarea id="input" placeholder="Start typing here..." disabled></textarea><br>
+  <button onclick="startTest()">Start Test</button>
+  <button onclick="nextSentence()">Next Sentence</button>
+  <button onclick="endTest()">End Test</button>
+  <p id="result"></p>
+</main>
+
+<script>
+const quotes = [
+  "i love programming",
+  "typing fast is fun",
+  "i love ITI",
+  "practice makes you better",
+  "learning HTML is easy",
+  "javaScript can be powerful",
+  "never stop learning",
+  "accuracy is important",
+  "coding improves problem solving"
+]
+
+let currentQuote, correctChars=0, totalChars=0, overallCorrect=0, overallTotal=0
+let startTime, endTime
+
+function startTest(){
+  newQuote()
+  document.getElementById("input").value = ""
+  document.getElementById("input").disabled = false
+  document.getElementById("input").focus()
+  document.getElementById("result").innerText = ""
+  overallCorrect = 0
+  overallTotal = 0
+  startTime = new Date().getTime()
+}
+
+function newQuote(){
+  currentQuote = quotes[Math.floor(Math.random()*quotes.length)]
+  document.getElementById("quote").innerText = currentQuote
+  document.getElementById("input").value = ""
+  correctChars = 0
+  totalChars = 0
+}
+
+document.getElementById("input").addEventListener("input",()=>{
+  let typed = document.getElementById("input").value
+  totalChars = typed.length
+  correctChars = 0
+  for(let i=0;i<typed.length;i++){
+    if(typed[i] === currentQuote[i]) correctChars++
+  }
+})
+
+function nextSentence(){
+  overallCorrect += correctChars
+  overallTotal += totalChars
+  newQuote()
+}
+
+function endTest(){
+  overallCorrect += correctChars
+  overallTotal += totalChars
+  endTime = new Date().getTime()
+  let accuracy = overallTotal ? Math.round((overallCorrect / overallTotal)*100) : 0
+  let totalTime = ((endTime - startTime) / 1000).toFixed(2) // بالثواني
+  document.getElementById("result").innerText = 
+    "Final Accuracy: " + accuracy + "%\nTotal Time: " + totalTime + " seconds"
+  document.getElementById("input").disabled = true
+}
+</script>
+
+</body>
+</html>

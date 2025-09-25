@@ -38,6 +38,7 @@ const quotes = [
   "learning HTML is easy",
   "javaScript can be powerful",
   "never stop learning",
+  "amr is a programmer",
   "accuracy is important",
   "coding improves problem solving"
 ]
@@ -84,7 +85,7 @@ function endTest(){
   overallTotal += totalChars
   endTime = new Date().getTime()
   let accuracy = overallTotal ? Math.round((overallCorrect / overallTotal)*100) : 0
-  let totalTime = ((endTime - startTime) / 1000).toFixed(2) // بالثواني
+  let totalTime = ((endTime - startTime) / 1000).toFixed(2) 
   document.getElementById("result").innerText = 
     "Final Accuracy: " + accuracy + "%\nTotal Time: " + totalTime + " seconds"
   document.getElementById("input").disabled = true
@@ -92,4 +93,5 @@ function endTest(){
 </script>
 
 </body>
+
 </html>
